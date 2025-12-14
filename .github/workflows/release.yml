@@ -43,7 +43,7 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install -r requirements.txt
           python -m pip install pyinstaller
-          pyinstaller --onefile main.py
+          pyinstaller --onefile library-CLI.py
 
       - name: Rename binary
         shell: bash
