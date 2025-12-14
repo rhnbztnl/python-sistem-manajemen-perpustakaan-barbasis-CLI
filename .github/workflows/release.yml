@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Library CLI Release
 
 on:
@@ -53,3 +54,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*
+=======
+
+>>>>>>> fa57a4189dbf3d7922af9fe3f0f202bb4c85ce89
