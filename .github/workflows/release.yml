@@ -1,0 +1,55 @@
+name: Library CLI Release
+
+on:
+    push:
+        tags:
+          - "v*"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - run: |
+          pip install -r requirements.txt
+          python -c "import system.library"
+    
+  build:
+    needs: test
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+          pyinstaller --onefile main.py
+
+      - name: Rename binary
+        run: |
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            mv dist/main dist/library-cli-linux
+          else
+            mv dist/main.exe dist/library-cli-windows.exe
+          fi
+        shell: bash
+        
+      - name: Upload Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
