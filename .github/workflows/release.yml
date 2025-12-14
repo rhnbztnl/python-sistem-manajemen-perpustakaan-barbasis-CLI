@@ -5,6 +5,9 @@ on:
         tags:
           - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,9 +17,10 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.10"
 
       - run: |
+          pip install --upgrade pip
           pip install -r requirements.txt
           python -c "import system.library"
     
@@ -33,21 +37,22 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.10"
 
       - run: |
+          pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
           pyinstaller --onefile main.py
 
       - name: Rename binary
+        shell: bash
         run: |
           if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
             mv dist/main dist/library-cli-linux
           else
             mv dist/main.exe dist/library-cli-windows.exe
           fi
-        shell: bash
         
       - name: Upload Release
         uses: softprops/action-gh-release@v2
