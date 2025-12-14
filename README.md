@@ -1,0 +1,1 @@
+![CI](https://github.com/rhnbztnl/python-sistem-manajemen-perpustakaan-berbasis-CLI/actions/workflows/release.yml/badge.svg)

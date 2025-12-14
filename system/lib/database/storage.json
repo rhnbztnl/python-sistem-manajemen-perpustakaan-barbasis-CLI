@@ -1,0 +1,56 @@
+{
+    "books": [],
+    "members": [
+        {
+            "ID_Member": 1,
+            "Name": "reyhan",
+            "Alamat": "banjar",
+            "Borrowing": [
+                2
+            ],
+            "Max_borrow": 4
+        }
+    ],
+    "borrows": [
+        {
+            "transaction_id": 1,
+            "book_id": 1,
+            "member_id": 1,
+            "date_borrowed": "2025-12-13",
+            "due_date": "2025-12-20",
+            "return_date": "2025-12-13"
+        },
+        {
+            "transaction_id": 2,
+            "book_id": 1,
+            "member_id": 1,
+            "date_borrowed": "2025-12-13",
+            "due_date": "2025-12-20",
+            "return_date": "2025-12-13"
+        },
+        {
+            "transaction_id": 3,
+            "book_id": 1,
+            "member_id": 1,
+            "date_borrowed": "2025-12-13",
+            "due_date": "2025-12-20",
+            "return_date": "2025-12-13"
+        },
+        {
+            "transaction_id": 4,
+            "book_id": 2,
+            "member_id": 1,
+            "date_borrowed": "2025-12-13",
+            "due_date": "2025-12-20",
+            "return_date": "2025-12-13"
+        },
+        {
+            "transaction_id": 5,
+            "book_id": 2,
+            "member_id": 1,
+            "date_borrowed": "2025-12-13",
+            "due_date": "2025-12-20",
+            "return_date": null
+        }
+    ]
+}
