@@ -49,9 +49,9 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-            mv dist/main dist/library-cli-linux
+            mv dist/library-CLI dist/library-cli-linux
           else
-            mv dist/main.exe dist/library-cli-windows.exe
+            mv dist/library-CLI.exe dist/library-cli-windows.exe
           fi
         
       - name: Upload Release
