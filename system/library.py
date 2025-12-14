@@ -9,13 +9,18 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 
+from pathlib import Path
 
 console = Console()
 
 class Library :
     
-    def __init__(self, file_path="system/lib/database/storage.json") :
-        self.file_path = file_path
+    APP_DIR = Path.home() / ".library_cli"
+    APP_DIR.mkdir(exist_ok=True)
+    
+    DB_PATH = APP_DIR / "storage.json"
+    
+    def __init__(self) :
         self.books = []
         self.member = []
         self.borrows = []
@@ -23,19 +28,20 @@ class Library :
     
     # Load and Save
     def load(self) :
-        try :
-            with open(self.file_path, "r") as f :
-                data = json.load(f)
-                
-            self.books = [Book.from_dict(b) for b in data.get("books", [])]
-            self.member = [Member.from_dict(m) for m in data.get("members", [])]
-            self.borrows = [Borrowing.from_dict(br) for br in data.get("borrows", [])]
-            
-        except FileNotFoundError :
+        if not self.DB_PATH.exists() :
             self.books = []
             self.member = []
             self.borrows = []
             self.save()
+            return
+        
+        with open(self.DB_PATH, "r") as f :
+            data = json.load(f)
+                
+        self.books = [Book.from_dict(b) for b in data.get("books", [])]
+        self.member = [Member.from_dict(m) for m in data.get("members", [])]
+        self.borrows = [Borrowing.from_dict(br) for br in data.get("borrows", [])]
+            
             
     def save(self) :
         data = {
@@ -44,7 +50,7 @@ class Library :
             "borrows": [br.into_dict() for br in self.borrows]
         }
         
-        with open(self.file_path, "w") as f :
+        with open(self.DB_PATH, "w") as f :
             json.dump(data, f , indent=4)
             
     # Utility
